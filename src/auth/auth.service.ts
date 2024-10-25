@@ -122,4 +122,16 @@ export class AuthService {
       throw new UnauthorizedException('Token verification failed');
     }
   }
+
+  private generateTokens(payload: { sub: string; email: string }) {
+    const accessToken = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+      expiresIn: '15m',
+    });
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: process.env.JWT_REFRESH_SECRET,
+      expiresIn: '7d',
+    });
+    return { accessToken, refreshToken };
+  }
 }

@@ -4,6 +4,7 @@ import { AuthController } from './auth.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { JwtModule } from '@nestjs/jwt';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
+    HttpModule,
   ],
   providers: [AuthService],
   controllers: [AuthController],
